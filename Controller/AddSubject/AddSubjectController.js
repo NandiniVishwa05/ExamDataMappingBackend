@@ -65,15 +65,25 @@ const filterbycourses = (req, res) => {
         sql = `select subjects.subject_id,subjects.subject_name,subjects.semester,courses.course_name from subjects inner join courses on subjects.course_id = courses.course_id where subjects.course_id=${req.params.courseid} ORDER BY subjects.semester;`
         // sql = `select * from subjects where course_id=${req.params.courseid}`
     }
-    // console.log(sql);
-
     db.query(sql, (err, data) => {
         if (err) {
             res.send(err);
             console.log(err);
-
         } else {
             res.send({ msg: "filtersfetched", data });
+        }
+    })
+}
+
+const fetchsemanddiv = (req,res) => {
+    let course_id = parseInt(req.params.course_id);
+    let sql= `SELECT no_of_division,no_of_semester from courses where course_id=${course_id}`
+    db.query(sql, (err, data) => {
+        if (err) {
+            res.send(err);
+            console.log(err);
+        } else {
+            res.send({ msg: "datafetched", data });
         }
     })
 }
@@ -82,5 +92,6 @@ module.exports = {
     checksubject,
     fetchallsubjects,
     deletesubject,
-    filterbycourses
+    filterbycourses,
+    fetchsemanddiv
 }
