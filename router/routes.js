@@ -6,7 +6,8 @@ const { fetchuserdetails, insertuserdetail, fetchusers, deleteuser } = require('
 const { checksubject, fetchallsubjects, deletesubject, filterbycourses, fetchsemanddiv } = require('../Controller/AddSubject/AddSubjectController.js');
 const { fetchusercredentials } = require('../Controller/LoginPage/Loginpagecontroller.js')
 const { insertadminprogramdetail, fetchadminprogramtabledetails, deleteadmintableprogramdetail } = require('../Controller/ManageProgram/ManageProgramController.js')
-router.get('/fetchcourses', fetchcourses);
+const { verifytoken } = require('../Controller/LoginPage/Loginpagecontroller.js');
+router.get('/fetchcourses', verifytoken, fetchcourses);
 router.get('/fetchcourseid/:coursename', fetchcourseid);
 router.get('/fetchsubjects/:courseid/:semester', fetchsubjects);
 router.get('/fetchsubjectid/:subjectname', fetchsubjectid);
