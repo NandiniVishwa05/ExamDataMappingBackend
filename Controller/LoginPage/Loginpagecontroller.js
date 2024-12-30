@@ -9,6 +9,10 @@ const db = sql.createConnection({
     port: 3306
 })
 
+const checkuserlogin = (request, res) => {
+    res.json({ msg: "userloggedin" });
+}
+
 const fetchusercredentials = (request, res) => {
     console.log(request.params.userid);
 
@@ -59,7 +63,7 @@ const logout = (req, res) => {
     res.json({ msg: 'LoggedOut' });
 }
 
-const fetchusertype = (req,res) => {
+const fetchusertype = (req, res) => {
     let sql = `select admin_check from userdetail where user_id=${req.user.user_id}`
     db.query(sql, (err, data) => {
         if (err) {
@@ -69,9 +73,42 @@ const fetchusertype = (req,res) => {
         }
     })
 }
+const checkemail = (req, res) => {
+    console.log(req.params.email);
+    let sql = `select * from userdetail where user_name='${req.params.email}'`;
+    db.query(sql, (err, data) => {
+        if (err) {
+            console.log(err);
+            res.send(err)
+        } else if (data.length > 0) {
+            res.json({ msg: "validEmail", data })
+            // console.log();
+        } else {
+            res.json({ msg: "invalidEmail" })
+        }
+    })
+}
+const insertpassword = (req, res) => {
+    const { uid, password } = req.body;
+    console.log(typeof(uid));
+    
+    let sql = `update userdetail set user_password='${password}' where user_id=${uid}`;
+    db.query(sql, (err, data) => {
+        if (err) {
+            console.log(err);
+            res.send("error");
+        } else if (data.affectedRows > 0) {
+            console.log("insertedsuccesfully");
+            res.send({ msg: 'insertedsuccesfully' });
+        }
+    })
+}
 module.exports = {
     fetchusercredentials,
     verifytoken,
     logout,
-    fetchusertype
+    fetchusertype,
+    checkuserlogin,
+    checkemail,
+    insertpassword
 }

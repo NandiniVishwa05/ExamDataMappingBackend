@@ -42,7 +42,7 @@ const insertuserdetail = (req, res) => {
 const fetchusers = (req, res) => {
     console.log("request is in");
     
-    let sql = `SELECT user_name FROM userdetail`;
+    let sql = `SELECT user_name FROM userdetail where admin_check="0"`;
     db.query(sql, (err, data) => {
         if (err) {
             console.log(err);
@@ -64,8 +64,6 @@ const deleteuser = (req, res) => {
             console.log(err);
             res.send("error");
         } else  {
-            // console.log(data);
-            
             res.send({ msg: "userdeleted" });
         }
     })
