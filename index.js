@@ -12,7 +12,7 @@ dotenv.config();
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(cors({
-    origin: ["http://192.168.1.5:3000","http://localhost:3000"],
+    origin: ["http://192.168.1.5:3000", "http://localhost:3000"],
     methods: ["GET", "POST"],
     credentials: true
 }));
@@ -24,4 +24,6 @@ app.use('/', router);
 //     console.log("Your server started at port ", httpsPort);
 // });
 
-module.exports = app;
+module.exports = (req, res) => {
+    app(req, res);
+};;
