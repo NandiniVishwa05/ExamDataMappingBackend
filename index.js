@@ -7,12 +7,12 @@ const bodyParser = require('body-parser');
 const { router } = require('./router/routes');
 const httpsPort = Number(process.env.PORT) || 3443;
 
-dotenv.config();    
+dotenv.config();
 
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(cors({
-    origin: ["http://192.168.30.141:3000","http://localhost:3000"],
+    origin: "http://192.168.77.141:3000",
     methods: ["GET", "POST"],
     credentials: true
 }));
