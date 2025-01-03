@@ -11,11 +11,11 @@ const db = sql.createConnection({
 })
 const insertadminprogramdetail = (req, res) => {
     const { course_name, no_of_semester, no_of_division } = req.body;
-    let sql = `insert into courses(course_name,no_of_semester,no_of_division) values('${course_name}',${no_of_semester},${no_of_division})`;
+    let sql = `insert into courses(course_name,no_of_semester,no_of_division) values ('${course_name}',${no_of_semester},${no_of_division})`;
     db.query(sql, (err, data) => {
         if (err) {
             console.log(err);
-            res.send("error");
+            res.send({ msg: "error" });
         } else if (data.affectedRows > 0) {
             console.log("insertedsuccesfully");
             res.send({ msg: 'insertedsuccesfully' });
@@ -23,7 +23,7 @@ const insertadminprogramdetail = (req, res) => {
     })
 }
 const fetchadminprogramtabledetails = (req, res) => {
-    
+
     let sql = `select * from courses`;
     db.query(sql, (err, data) => {
         if (err) {
@@ -38,7 +38,7 @@ const fetchadminprogramtabledetails = (req, res) => {
 
 const deleteadmintableprogramdetail = (req, res) => {
     // console.log(course_id);
-    
+
     let sql = `DELETE FROM courses where course_id=${req.params.course_id}`
     db.query(sql, (err, data) => {
         if (err) {

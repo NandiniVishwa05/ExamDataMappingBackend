@@ -69,15 +69,18 @@ const filterbycourses = (req, res) => {
         if (err) {
             res.send(err);
             console.log(err);
-        } else {
+        } else if (data.length == 0) {
+            res.send({ msg: "norecordsfound", data });
+
+        }else{
             res.send({ msg: "filtersfetched", data });
         }
     })
 }
 
-const fetchsemanddiv = (req,res) => {
+const fetchsemanddiv = (req, res) => {
     let course_id = parseInt(req.params.course_id);
-    let sql= `SELECT no_of_division,no_of_semester from courses where course_id=${course_id}`
+    let sql = `SELECT no_of_division,no_of_semester from courses where course_id=${course_id}`
     db.query(sql, (err, data) => {
         if (err) {
             res.send(err);

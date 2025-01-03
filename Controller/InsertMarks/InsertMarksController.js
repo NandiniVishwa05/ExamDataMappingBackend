@@ -40,7 +40,7 @@ const fetchsubjects = (req, res) => {
         if (err) {
             console.log(err);
             res.send("error");
-        } else if (data.length > 0) {
+        } else if (data.length >= 0) {
             res.send(data);
         }
     })
